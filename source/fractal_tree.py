@@ -73,6 +73,8 @@ while True:
 	elif event == "enter":
 		try:
 			os.remove("./tmp.png")
+		except:
+			print("no tmp founded")
 		finally:
 			image = Image.new("RGB", win["display"].Size, color=16777215)
 			on_button_click(image, value)
@@ -80,9 +82,12 @@ while True:
 			win["display"].Update("tmp.png")
 	elif event == 'save_image':
 		if image:
-			save_image(image, value["file"])
+			save_image(image, value["file"].replace(".png", ""))
 		else:
 			win["msg"].Update("No image to save")
-win.close()
+try:
+	os.remove("./tmp.png")
+finally:
+	win.close()
 #poggers
 
