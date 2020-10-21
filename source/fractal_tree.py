@@ -4,6 +4,7 @@ import PySimpleGUI as g
 import threading as tr
 import numpy as np
 import time
+import os
 #globals
 version=" v1.0"
 decrese_len = None
@@ -70,9 +71,13 @@ while True:
 	if event == None:
 		break
 	elif event == "enter":
-		image = Image.new("RGB", win["display"].Size, color=16777215)
-		on_button_click(image, value)
-		win["display"].Update(PILdata=image)
+		try:
+			os.remove("./tmp.png")
+		finally:
+			image = Image.new("RGB", win["display"].Size, color=16777215)
+			on_button_click(image, value)
+			save_image(image, "./tmp")
+			win["display"].Update("tmp.png")
 	elif event == 'save_image':
 		if image:
 			save_image(image, value["file"])
